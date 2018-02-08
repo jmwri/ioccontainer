@@ -30,10 +30,7 @@ def provide_my_service():
 ```
 from py-ioc import container
 
-def get_val(my_service):
-    return my_service.val
 my_service = container.get(MyService)
-print(get_val(my_service))  # 1
 ```
 
 You can also use the `@inject` decorator.
@@ -43,12 +40,6 @@ from py-ioc import container, inject
 @inject(my_service=MyService)
 def get_val(my_service):
     return my_service.val
-print(get_val())  # 1
-
-@inject('my_service')
-def get_val2(my_service: MyService):
-    return my_service.val
-print(get_val2())  # 1
 ```
 
 ## Scopes
@@ -68,6 +59,7 @@ first = container.get(MyService)
 second = container.get(MyService)
 print(first.val)  # 1
 print(second.val)  # 1
+
 first.val = 2
 print(first.val)  # 2
 print(second.val)  # 1
@@ -87,6 +79,7 @@ first = container.get(MyService)
 second = container.get(MyService)
 print(first.val)  # 1
 print(second.val)  # 1
+
 first.val = 2
 print(first.val)  # 2
 print(second.val)  # 2
