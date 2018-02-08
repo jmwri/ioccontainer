@@ -2,7 +2,7 @@ from distutils.core import setup
 setup(
   name='ioccontainer',
   packages=['ioccontainer'],  # this must be the same as the name above
-  version='0.1.0',
+  version='0.0.1',
   description='Service container for automatic dependency injection',
   author='Jim Wright',
   author_email='jmwri93@gmail.com',
