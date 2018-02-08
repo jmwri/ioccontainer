@@ -33,13 +33,28 @@ from py-ioc import container
 my_service = container.get(MyService)
 ```
 
-You can also use the `@inject` decorator.
+You can also use the `@inject` decorator. You can specify which service to inject into a variable as an argument, or use annotations.
 ```
 from py-ioc import container, inject
 
 @inject(my_service=MyService)
-def get_val(my_service):
+def get_val_from_specified_service(my_service):
     return my_service.val
+
+@inject('my_service')
+def get_val_from_annotated_service(my_service: MyService):
+    return my_service.val
+```
+
+You can specify as many injections as you want inside of the `@inject` decorator.
+
+```
+from py-ioc import inject
+@inject('db', 'my_service', users=UserRepository)
+def do_something(db: DatabaseAdapter, action, my_service: MyService, users):
+    pass
+
+do_something(action='some_action')
 ```
 
 ## Scopes
