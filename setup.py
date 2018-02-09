@@ -1,16 +1,21 @@
 from distutils.core import setup
 
+github = 'https://github.com/jmwri/ioccontainer'
+version = '1.0.2'
+
 setup(
     name='ioccontainer',
     packages=['ioccontainer'],  # this must be the same as the name above
-    version='1.0.1',
+    version=version,
     license='MIT',
     python_requires='>=3.6, <4',
     description='Service container for automatic dependency injection',
     author='Jim Wright',
     author_email='jmwri93@gmail.com',
-    url='https://github.com/jmwri/ioccontainer',
-    download_url='https://github.com/jmwri/ioccontainer/archive/0.1.tar.gz',
+    url=github,
+    download_url='{github}/archive/{version}.tar.gz'.format(
+        github=github, version=version
+    ),
     keywords=['ioc', 'di', 'dependency', 'injection', 'container'],
     classifiers=[
         # How mature is this project? Common values are
