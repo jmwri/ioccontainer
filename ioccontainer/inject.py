@@ -25,6 +25,8 @@ def inject_decorator(container: 'Container'):
 
                 return f(*new_args, **kwargs)
 
+            wrapped_f.__name__ = f.__name__
+
             return wrapped_f
 
         def process_parameter(
