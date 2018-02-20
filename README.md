@@ -110,3 +110,10 @@ from ioccontainer import provider, scopes
 def provide_my_service():
     return MyService()
 ```
+
+## Running tests
+### Install the package with test dependencies
+`pip install -e ".[test]"`
+
+### Run tox
+`tox`

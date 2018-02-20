@@ -89,7 +89,7 @@ def _get_parameter_class(parameter: inspect.Parameter,
 def _default_parameter_provided(parameter: inspect.Parameter) -> bool:
     if parameter.default is inspect.Parameter.empty:
         return False
-    if parameter.default is not None:
+    if parameter.default is None:
         return False
     return True
 
