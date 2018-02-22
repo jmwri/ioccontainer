@@ -1,6 +1,7 @@
 import pytest
+import concurrent.futures
 
-from ioccontainer import c, provider, inject, scopes, exceptions
+from ioccontainer import c, provider, inject, exceptions
 
 
 class MyService:
@@ -105,3 +106,30 @@ def test_argument_provided():
 
     ms = MyService(2)
     my_fn(ms)
+
+
+def provide_my_service_threaded():
+    return MyService()
+
+
+c.thread('my_service_threaded', provide_my_service_threaded)
+
+
+def test_threaded_provider():
+    def worker(to_add):
+        @inject(ms='my_service_threaded')
+        def get_ms(ms):
+            return ms
+        ms = get_ms()
+        ms.val = ms.val + to_add
+        return ms.val
+
+    with concurrent.futures.ThreadPoolExecutor(5, 'test_ioc_thread') as executor:
+        futures = {executor.submit(worker, i): i for i in range(5)}
+        total = 0
+        for future in concurrent.futures.as_completed(futures):
+            i = futures[future]
+            data = future.result()
+            assert data is i + 1
+            total += data
+        assert total is 15
