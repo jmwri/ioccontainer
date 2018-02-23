@@ -148,3 +148,29 @@ def test_injection_to_constructor():
     my_class = MyClass('my_test_string')
     assert my_class.some_str is 'my_test_string'
     assert my_class.get_val() is 1
+
+
+@provider('str_service')
+def provide_str():
+    return 'string service'
+
+
+def test_param_overriding():
+    @inject(string='str_service')
+    def my_fn(string):
+        return string
+
+    assert my_fn() == 'string service'
+    assert my_fn('overridden') == 'overridden'
+    assert my_fn(None) == 'string service'
+
+
+def test_multiple_param_overriding():
+    @inject(s1='str_service', s2='str_service')
+    def my_fn(s1, s2):
+        return s1, s2
+
+    assert my_fn() == ('string service', 'string service')
+    assert my_fn('overridden') == ('overridden', 'string service')
+    assert my_fn(None) == ('string service', 'string service')
+    assert my_fn('overridden', None) == ('overridden', 'string service')
