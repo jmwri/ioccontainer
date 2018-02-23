@@ -133,3 +133,18 @@ def test_threaded_provider():
             assert data is i + 1
             total += data
         assert total is 15
+
+
+def test_injection_to_constructor():
+    class MyClass:
+        @inject('my_service')
+        def __init__(self, some_str, my_service: MyService):
+            self.some_str = some_str
+            self.my_service = my_service
+
+        def get_val(self):
+            return self.my_service.val
+
+    my_class = MyClass('my_test_string')
+    assert my_class.some_str is 'my_test_string'
+    assert my_class.get_val() is 1
