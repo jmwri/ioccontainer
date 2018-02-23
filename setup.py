@@ -1,7 +1,7 @@
 from distutils.core import setup
 
 github = 'https://github.com/jmwri/ioccontainer'
-version = '1.0.4'
+version = '1.0.5'
 
 setup(
     name='ioccontainer',
